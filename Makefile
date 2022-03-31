@@ -8,6 +8,7 @@ SRCS= main.c \
 	  utils.c \
 	  parsing.c \
 	  start.c \
+	  get_time.c
 
 
 OBJS=${SRCS:.c=.o}
