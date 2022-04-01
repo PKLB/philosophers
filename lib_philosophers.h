@@ -26,6 +26,7 @@ typedef struct	struct_philo
 	t_arguments 	*arguments;
 	pthread_t   	thread_id;
 	pthread_mutex_t mutex;
+	int				nb_eat;
 	int				philo_id;
 	int				test;
 }					t_philo;

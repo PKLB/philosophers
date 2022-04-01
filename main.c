@@ -6,7 +6,8 @@ int	activity(t_philo *arg, t_general *data)
 		ft_usleep(100);
 	pthread_mutex_lock(&data->philo->mutex);
 	printf("%ld %d is eating\n",(get_time() - data->args.start_time), arg->philo_id);
-	data->args.finish_eat++;
+	arg->nb_eat++;
+	printf("%d has eaten %d times\n",arg->philo_id, arg->nb_eat);
 	pthread_mutex_unlock(&data->philo->mutex);
 	ft_usleep(data->args.time_eat);
 	printf("%ld %d is sleeping\n",(get_time() - data->args.start_time), arg->philo_id);
