@@ -11,12 +11,13 @@
 //Structure with all the arguments that are gonna be the same for every philosopher
 typedef struct	struct_arguments
 {
-	int			nb_of_philo;
-	int			time_die;
-	int			time_eat;
-	int			time_sleep;
-	int			must_eat;
-	long int	start_time;
+	int				nb_of_philo;
+	int				time_die;
+	int				time_eat;
+	int				time_sleep;
+	int				must_eat;
+	int				finish_eat;
+	long int		start_time;
 }				t_arguments;
 
 //Structure unique for each philosopher

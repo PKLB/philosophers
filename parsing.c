@@ -7,6 +7,7 @@ int	ft_parsing(t_general *data, char *argv[], int argc)
 	data->args.time_eat = ft_atoi(argv[3]);
 	data->args.time_sleep = ft_atoi(argv[4]);
 	data->args.start_time = get_time();
+	data->args.finish_eat = -1;
 	if (argc == 6)
 		data->args.must_eat = ft_atoi(argv[5]);
 	else
