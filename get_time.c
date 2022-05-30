@@ -7,7 +7,7 @@ long int	get_time(void)
 
 	time = 0;
 	if (gettimeofday(&current_time, NULL) == -1)
-		return(1);
+		return (1);
 	time = (current_time.tv_sec * 1000) + (current_time.tv_usec / 1000);
 	return (time);
 }

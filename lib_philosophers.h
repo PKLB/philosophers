@@ -1,6 +1,5 @@
-// METTRE HEADER
-#ifndef LIB_PHILOSOPHER_H
-# define LIB_PHILOSOPHER_H
+#ifndef LIB_PHILOSOPHERS_H
+# define LIB_PHILOSOPHERS_H
 
 # include <unistd.h>
 # include <stdio.h>
@@ -8,8 +7,9 @@
 # include <sys/time.h>
 # include <pthread.h>
 
-//Structure with all the arguments that are gonna be the same for every philosopher
-typedef struct	struct_arguments
+//Structure with all the arguments that are gonna be the same
+//for every philosopher
+typedef struct struct_arguments
 {
 	int				nb_of_philo;
 	int				time_die;
@@ -21,14 +21,15 @@ typedef struct	struct_arguments
 }				t_arguments;
 
 //Structure unique for each philosopher
-typedef struct	struct_philo
+typedef struct struct_philo
 {
-	t_arguments 	*arguments;
-	pthread_t   	thread_id;
-	pthread_mutex_t mutex;
+	pthread_t		thread_id;
+	pthread_mutex_t	left_fork;
+	//pthread_mutex_t	*right_fork;
+	t_arguments		*args;
 	int				nb_eat;
+	int				finished_eating;
 	int				philo_id;
-	int				test;
 }					t_philo;
 
 //General structure
@@ -45,7 +46,7 @@ int			ft_check_number(char **nb);
 long int	get_time(void);
 void		ft_usleep(long int time_in_ms);
 int			ft_error(char *str);
-int 		ft_checks(int argc, char *argv[]);
+int			ft_checks(int argc, char *argv[]);
 int			ft_parsing(t_general *data, char *argv[], int argc);
 int			start(t_general *data);
 

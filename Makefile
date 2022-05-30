@@ -1,5 +1,5 @@
 CC= gcc
-CFLAGS= -Wall -Wextra -Werror
+CFLAGS= -Wall -Wextra -Werror -fsanitize=address -g
 RM=rm -f
 NAME=philosophers
 SRCS= main.c \
@@ -7,7 +7,6 @@ SRCS= main.c \
 	  error.c \
 	  utils.c \
 	  parsing.c \
-	  start.c \
 	  get_time.c
 
 
