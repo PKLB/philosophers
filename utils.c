@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ple-berr <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/05/31 14:00:22 by ple-berr          #+#    #+#             */
+/*   Updated: 2022/05/31 14:00:23 by ple-berr         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "lib_philosophers.h"
 
 void	ft_putstr(char *str)
@@ -9,11 +21,11 @@ void	ft_putstr(char *str)
 		write(1, &str[i++], 1);
 }
 
-long int	ft_atoi(const char *str)
+long long	ft_atoi(const char *str)
 {
 	int			i;
-	long int	nb;
-	long int	sign;
+	long long	nb;
+	long long	sign;
 
 	nb = 0;
 	i = 0;

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parsing.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ple-berr <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/05/31 14:00:09 by ple-berr          #+#    #+#             */
+/*   Updated: 2022/05/31 14:00:10 by ple-berr         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "lib_philosophers.h"
 
 int	ft_parsing(t_general *data, char *argv[], int argc)
@@ -30,8 +42,15 @@ int	start(t_general *data)
 	{
 		data->philo[i].args = &data->args;
 		data->philo[i].nb_eat = 0;
+		data->philo[i].last_meal = get_time();
 		data->philo[i].finished_eating = -1;
 		data->philo[i].philo_id = i + 1;
+		pthread_mutex_init(&data->philo[i].left_fork, NULL);
+		pthread_mutex_init(&data->philo[i].get_meal, NULL);
+		if (i == data->args.nb_of_philo - 1)
+			data->philo[i].right_fork = &data->philo[0].left_fork;
+		else
+			data->philo[i].right_fork = &data->philo[i + 1].left_fork;
 	}
 	return (0);
 }

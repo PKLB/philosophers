@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   checks.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ple-berr <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/05/31 13:59:50 by ple-berr          #+#    #+#             */
+/*   Updated: 2022/05/31 13:59:51 by ple-berr         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "lib_philosophers.h"
 
 int	ft_check_number(char *nb[])
@@ -36,7 +48,7 @@ int	ft_check_number_size(char *nb[])
 	return (0);
 }
 
-int ft_checks(int argc, char *argv[])
+int	ft_checks(int argc, char *argv[])
 {
 	if (argc == 5 || argc == 6)
 	{

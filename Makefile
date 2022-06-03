@@ -1,5 +1,5 @@
 CC= gcc
-CFLAGS= -Wall -Wextra -Werror -fsanitize=address -g
+CFLAGS= -Wall -Wextra -Werror -Ofast
 RM=rm -f
 NAME=philosophers
 SRCS= main.c \
@@ -7,7 +7,9 @@ SRCS= main.c \
 	  error.c \
 	  utils.c \
 	  parsing.c \
-	  get_time.c
+	  get_time.c \
+	  threads.c \
+	  prints.c
 
 
 OBJS=${SRCS:.c=.o}
