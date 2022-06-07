@@ -15,7 +15,7 @@
 void	sleep_routine(t_philo *structure)
 {
 	print_action(structure, 1);
-	ft_usleep(1);
+	ft_usleep(2);
 }
 
 void	living_the_life(t_philo *structure)
@@ -29,8 +29,8 @@ void	living_the_life(t_philo *structure)
 	structure->last_meal = get_time();
 	pthread_mutex_unlock(&structure->get_meal);
 	ft_usleep(structure->args->time_eat);
-	pthread_mutex_unlock(structure->right_fork);
 	pthread_mutex_unlock(&structure->left_fork);
+	pthread_mutex_unlock(structure->right_fork);
 	print_action(structure, 1);
 	ft_usleep(structure->args->time_sleep);
 	print_action(structure, 0);
@@ -38,23 +38,27 @@ void	living_the_life(t_philo *structure)
 
 void	*check_death(void	*params)
 {
-	t_philo		*structure;
+	t_philo		*s;
 	long long	time;
 	long long	last_meal;
 
-	structure = (t_philo *)params;
+	s = (t_philo *)params;
 	while (1)
 	{
-		pthread_mutex_lock(&structure->args->get_time); 
-		time = get_time() - structure->args->start_time;
-		last_meal = ((structure->last_meal - structure->args->start_time) + structure->args->time_die);
+		pthread_mutex_lock(&s->args->get_time);
+		time = get_time() - s->args->start_time;
+		pthread_mutex_unlock(&s->args->get_time);
+		pthread_mutex_lock(&s->args->check_death);
+		last_meal = ((s->last_meal - s->args->start_time) + s->args->time_die);
 		if (last_meal < time)
 		{
-			pthread_mutex_unlock(&structure->args->get_time); 
-			pthread_mutex_unlock(&structure->args->end_threads);
-			return (NULL);
+			if (last_meal < time)
+			{
+				pthread_mutex_unlock(&s->args->end_threads);
+				return (NULL);
+			}
 		}
-		pthread_mutex_unlock(&structure->args->get_time); 
+		pthread_mutex_unlock(&s->args->check_death);
 	}
 	return (NULL);
 }
@@ -86,26 +90,28 @@ void	*routine(void *params)
 	return (NULL);
 }
 
-int	create_threads(t_general *structure)
+int	create_threads(t_general *stru)
 {
 	int	i;
 
 	i = -1;
-	pthread_mutex_init(&structure->args.check_death, NULL);
-	pthread_mutex_init(&structure->args.get_time, NULL);
-	pthread_mutex_init(&structure->args.check_eat, NULL);
-	while (i++ < structure->args.nb_of_philo - 1)
+	pthread_mutex_init(&stru->args.check_death, NULL);
+	pthread_mutex_init(&stru->args.get_time, NULL);
+	pthread_mutex_init(&stru->args.check_eat, NULL);
+	while (i++ < stru->args.nb_of_philo - 1)
 	{
-		if (pthread_create(&structure->philo[i].thread_id, NULL,
-				routine, &structure->philo[i]) == -1)
+		pthread_mutex_lock(&stru->args.check_death);
+		if (pthread_create(&stru->philo[i].thread_id, NULL,
+				routine, &stru->philo[i]) == -1)
 			return (1);
-		pthread_mutex_lock(&structure->args.check_death);
-		if (pthread_create(&structure->philo[i].thread_id, NULL,
-				check_death, &structure->philo[i]) == -1)
+		pthread_mutex_unlock(&stru->args.check_death);
+		pthread_mutex_lock(&stru->args.check_death);
+		if (pthread_create(&stru->philo[i].thread_id, NULL,
+				check_death, &stru->philo[i]) == -1)
 			return (1);
-		pthread_mutex_unlock(&structure->args.check_death);
-		if (i + 1 == structure->args.nb_of_philo && structure->args.finish_eat == -1)
-			pthread_mutex_lock(&structure->args.end_threads);
+		pthread_mutex_unlock(&stru->args.check_death);
+		if (i + 1 == stru->args.nb_of_philo && stru->args.finish_eat == -1)
+			pthread_mutex_lock(&stru->args.end_threads);
 	}
 	return (0);
 }

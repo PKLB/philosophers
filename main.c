@@ -19,7 +19,6 @@ int	main(int argc, char *argv[])
 	if (ft_parsing(&structure, argv, argc) != 0 || start(&structure) != 0)
 		return (1);
 	pthread_mutex_init(&structure.args.end_threads, NULL);
-	print_args(structure, 0);
 	pthread_mutex_lock(&structure.args.end_threads);
 	if (create_threads(&structure) != 0)
 		return (1);

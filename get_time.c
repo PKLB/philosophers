@@ -12,7 +12,7 @@
 
 #include "lib_philosophers.h"
 
-long long	get_time()
+long long	get_time(void)
 {
 	long long			time;
 	struct timeval		current_time;
